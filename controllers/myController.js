@@ -48,7 +48,23 @@ function modify(req, res) {
 // destroy
 
 function destroy(req, res) {
-    res.send("Eliminazione del post numero " + req.params.id)
+    const myId = parseInt(req.params.id);
+
+    const filteredDeletePost = postsList.find(e => e.id === myId)
+
+    if (!filteredDeletePost) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "This page does not exist"
+        })
+    }
+
+    postsList.splice(postsList.indexOf(filteredDeletePost), 1)
+
+    res.sendStatus(204);
+
 }
 
 module.exports = { index, show, store, update, modify, destroy };
