@@ -63,6 +63,9 @@ function destroy(req, res) {
 
     postsList.splice(postsList.indexOf(filteredDeletePost), 1)
 
+    console.log(postsList);
+
+
     res.sendStatus(204);
 
 }
