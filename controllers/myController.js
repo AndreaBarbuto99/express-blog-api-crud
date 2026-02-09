@@ -2,16 +2,28 @@
 const postsList = require("./../data/posts");
 
 // index
+
 function index(req, res) {
+
+    let filteredPost = postsList;
+
+    if (req.query.tags) {
+        let filterTag = req.query.tags;
+        filteredPost = postsList.filter(e => e.tags.includes(filterTag))
+        return res.json(filteredPost)
+    }
+
     res.json(postsList)
+
 }
 
 // show 
+
 function show(req, res) {
     const myId = parseInt(req.params.id);
-    const filteredPostList = postsList.find(e => e.id === myId)
+    const filteredPost = postsList.find(e => e.id === myId)
 
-    if (!filteredPostList) {
+    if (!filteredPost) {
         res.status(404);
 
         return res.json({
@@ -23,7 +35,7 @@ function show(req, res) {
 
 
 
-    res.json(filteredPostList)
+    res.json(filteredPost)
 }
 
 
