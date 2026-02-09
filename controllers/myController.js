@@ -1,14 +1,31 @@
 
+const postsList = require("./../data/posts");
 
 // index
 function index(req, res) {
-    res.send("Lista dei post")
+    res.json(postsList)
 }
 
 // show 
 function show(req, res) {
-    res.send("Questo è il post numero " + req.params.id)
+    const myId = parseInt(req.params.id);
+    const filteredPostList = postsList.find(e => e.id === myId)
+
+    if (!filteredPostList) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "This page does not exist"
+        })
+    }
+
+
+
+
+    res.json(filteredPostList)
 }
+
 
 // store
 
