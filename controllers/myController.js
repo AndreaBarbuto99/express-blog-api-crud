@@ -1,6 +1,8 @@
 
 const postsList = require("./../data/posts");
 
+
+
 // index
 
 function index(req, res) {
@@ -42,6 +44,7 @@ function show(req, res) {
 // store
 
 function store(req, res) {
+    console.log(req.body)
     res.send("Crea un nuovo post")
 }
 

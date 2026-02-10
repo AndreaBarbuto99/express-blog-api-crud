@@ -7,6 +7,7 @@ const port = 3000;
 const postsRouter = require("./routers/postsRouter");
 
 app.use(express.static("public"));
+app.use(express.json());
 
 app.get("/", (req, res) => {
     res.send("<h1>Homepage della pagina</h1>")
