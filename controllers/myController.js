@@ -44,8 +44,23 @@ function show(req, res) {
 // store
 
 function store(req, res) {
-    console.log(req.body)
-    res.send("Crea un nuovo post")
+    const myId = Date.now();
+
+    const newPost = {
+        id: myId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    };
+
+    postsList.push(newPost);
+
+    console.log(postsList);
+
+    res.status(201);
+    res.json(newPost);
+
 }
 
 // update
