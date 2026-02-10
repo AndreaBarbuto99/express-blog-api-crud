@@ -94,7 +94,24 @@ function update(req, res) {
 // modify 
 
 function modify(req, res) {
-    res.send("Modifica parziale del post numero " + req.params.id)
+    const myId = parseInt(req.params.id);
+    let modifiedPost = postsList.find(e => e.id === myId);
+
+    if (!modifiedPost) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "This page does not exist"
+        })
+    }
+
+    req.body.title ? modifiedPost.title = req.body.title : modifiedPost.title = modifiedPost.title;
+    req.body.content ? modifiedPost.content = req.body.content : modifiedPost.content = modifiedPost.content;
+    req.body.image ? modifiedPost.image = req.body.image : modifiedPost.image = modifiedPost.image;
+    req.body.tags ? modifiedPost.tags = req.body.tags : modifiedPost.tags = modifiedPost.tags;
+
+    res.json(modifiedPost);
 }
 
 // destroy
