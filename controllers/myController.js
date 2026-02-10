@@ -66,7 +66,29 @@ function store(req, res) {
 // update
 
 function update(req, res) {
-    res.send("Modifica integrale del post numero " + req.params.id)
+
+    const myId = parseInt(req.params.id);
+    const updatePost = postsList.find(e => e.id === myId)
+
+
+    if (!updatePost) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "This page does not exist"
+        })
+    }
+
+    updatePost.title = req.body.title;
+    updatePost.content = req.body.content;
+    updatePost.image = req.body.image;
+    updatePost.tags = req.body.tags;
+
+    res.json(updatePost);
+
+
+
 }
 
 // modify 
