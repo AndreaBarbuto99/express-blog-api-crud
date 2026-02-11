@@ -21,17 +21,12 @@ function index(req, res) {
 
 // show 
 
-function show(req, res) {
+function show(req, res, next) {
     const myId = parseInt(req.params.id);
     const filteredPost = postsList.find(e => e.id === myId)
 
     if (!filteredPost) {
-        res.status(404);
-
-        return res.json({
-            error: "Not Found",
-            message: "This page does not exist"
-        })
+        throw next(new Error("Post non trovato"))
     }
 
 
@@ -65,19 +60,14 @@ function store(req, res) {
 
 // update
 
-function update(req, res) {
+function update(req, res, next) {
 
     const myId = parseInt(req.params.id);
     const updatePost = postsList.find(e => e.id === myId)
 
 
     if (!updatePost) {
-        res.status(404);
-
-        return res.json({
-            error: "Not Found",
-            message: "This page does not exist"
-        })
+        throw next(new Error("Post non trovato"))
     }
 
     updatePost.title = req.body.title;
@@ -93,17 +83,12 @@ function update(req, res) {
 
 // modify 
 
-function modify(req, res) {
+function modify(req, res, next) {
     const myId = parseInt(req.params.id);
     let modifiedPost = postsList.find(e => e.id === myId);
 
     if (!modifiedPost) {
-        res.status(404);
-
-        return res.json({
-            error: "Not Found",
-            message: "This page does not exist"
-        })
+        throw next(new Error("Post non trovato"))
     }
 
     req.body.title ? modifiedPost.title = req.body.title : modifiedPost.title = modifiedPost.title;
@@ -116,18 +101,13 @@ function modify(req, res) {
 
 // destroy
 
-function destroy(req, res) {
+function destroy(req, res, next) {
     const myId = parseInt(req.params.id);
 
     const filteredDeletePost = postsList.find(e => e.id === myId)
 
     if (!filteredDeletePost) {
-        res.status(404);
-
-        return res.json({
-            error: "Not Found",
-            message: "This page does not exist"
-        })
+        throw next(new Error("Post non trovato"))
     }
 
     postsList.splice(postsList.indexOf(filteredDeletePost), 1)

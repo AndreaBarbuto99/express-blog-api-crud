@@ -2,6 +2,10 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+//import middlewares
+const errorsHandler = require("./middlewares/errorsHandler");
+const endpointNotFound = require("./middlewares/endpointNotFound");
+
 // import router
 
 const postsRouter = require("./routers/postsRouter");
@@ -14,6 +18,10 @@ app.get("/", (req, res) => {
 })
 
 app.use("/posts", postsRouter);
+
+app.use(endpointNotFound);
+
+app.use(errorsHandler);
 
 
 app.listen(port, () => {
